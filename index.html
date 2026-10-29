@@ -353,7 +353,18 @@
     </section>
 
     <!-- INTERACTIVE ITINERARY SECTION -->
-    <section id="itinerario" class="py-20 bg-pop-bg-alt border-t-4 border-pop-text relative">
+    <section id="itinerario" class="py-20 bg-pop-bg-alt border-t-4 border-pop-text relative overflow-hidden">
+        
+        <!-- Animated Pointer Cursor Element -->
+        <div id="virtualCursor" class="pointer-events-none fixed z-50 transition-all duration-700 ease-in-out opacity-0 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
+            <svg class="w-8 h-8 text-pop-orange drop-shadow-[2px_2px_0px_#2D2118]" viewBox="0 0 24 24" fill="currentColor" stroke="#2D2118" stroke-width="1.5">
+                <path d="M3 3l7 18 3-7 7-3L3 3z"/>
+            </svg>
+            <span class="bg-pop-pink text-white font-heading font-bold text-xs px-2.5 py-0.5 rounded-full border border-pop-text shadow-sm whitespace-nowrap animate-pulse">
+                ¡Haz clic para ver! ✨
+            </span>
+        </div>
+
         <div class="max-w-7xl mx-auto px-4">
             
             <div class="text-center space-y-4 mb-12">
@@ -370,19 +381,19 @@
 
             <!-- Day Selector Tabs (Retro Pill Buttons) -->
             <div class="flex flex-wrap justify-center gap-3 mb-10" id="dayTabs">
-                <button onclick="switchDay(1)" id="tab-1" class="day-tab active font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-pop-orange text-white shadow-pop">
+                <button onclick="userSelectDay(1)" id="tab-1" class="day-tab active font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-pop-orange text-white shadow-pop">
                     Día 1 • Jue 4 Mar
                 </button>
-                <button onclick="switchDay(2)" id="tab-2" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
+                <button onclick="userSelectDay(2)" id="tab-2" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
                     Día 2 • Vie 5 Mar
                 </button>
-                <button onclick="switchDay(3)" id="tab-3" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
+                <button onclick="userSelectDay(3)" id="tab-3" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
                     Día 3 • Sáb 6 Mar
                 </button>
-                <button onclick="switchDay(4)" id="tab-4" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
+                <button onclick="userSelectDay(4)" id="tab-4" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
                     Día 4 • Dom 7 Mar
                 </button>
-                <button onclick="switchDay(5)" id="tab-5" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
+                <button onclick="userSelectDay(5)" id="tab-5" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
                     Día 5 • Lun 8 Mar
                 </button>
             </div>
@@ -819,6 +830,117 @@
                 }
             });
         }
+
+        /* --- DEMO ANIMATION FOR ITINERARY --- */
+        let demoActive = false;
+        let demoHasRun = false;
+        let demoTimeouts = [];
+
+        function stopDemoAnimation() {
+            if (!demoActive) return;
+            demoActive = false;
+            demoTimeouts.forEach(t => clearTimeout(t));
+            demoTimeouts = [];
+            
+            const cursor = document.getElementById('virtualCursor');
+            if (cursor) {
+                cursor.style.opacity = '0';
+            }
+        }
+
+        function userSelectDay(dayNum) {
+            stopDemoAnimation();
+            switchDay(dayNum);
+        }
+
+        function runItineraryDemo() {
+            if (demoHasRun || demoActive) return;
+            demoActive = true;
+            demoHasRun = true;
+
+            const cursor = document.getElementById('virtualCursor');
+            const tabs = [1, 2, 3, 4, 5].map(d => document.getElementById(`tab-${d}`));
+
+            if (!cursor || !tabs[0]) return;
+
+            // Helper to get element coordinates
+            const getPos = (el) => {
+                const rect = el.getBoundingClientRect();
+                return {
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2
+                };
+            };
+
+            // Start near tab 1
+            const initialPos = getPos(tabs[0]);
+            cursor.style.left = `${initialPos.x + 80}px`;
+            cursor.style.top = `${initialPos.y + 60}px`;
+            
+            // Fade in cursor
+            const t0 = setTimeout(() => {
+                if (!demoActive) return;
+                cursor.style.opacity = '1';
+            }, 300);
+            demoTimeouts.push(t0);
+
+            // Sequence click through days
+            let delay = 800;
+            [1, 2, 3, 4, 5, 1].forEach((day, stepIndex) => {
+                const tStep = setTimeout(() => {
+                    if (!demoActive) return;
+                    
+                    const tabEl = document.getElementById(`tab-${day}`);
+                    if (!tabEl) return;
+                    
+                    const pos = getPos(tabEl);
+                    cursor.style.left = `${pos.x}px`;
+                    cursor.style.top = `${pos.y}px`;
+
+                    // Trigger click effect after cursor arrives
+                    const tClick = setTimeout(() => {
+                        if (!demoActive) return;
+                        
+                        // Click scale pulse effect on cursor
+                        cursor.style.transform = 'translate(-50%, -50%) scale(0.85)';
+                        switchDay(day);
+
+                        setTimeout(() => {
+                            if (!demoActive) return;
+                            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                        }, 200);
+
+                    }, 500);
+                    demoTimeouts.push(tClick);
+
+                }, delay);
+
+                demoTimeouts.push(tStep);
+                delay += 1500;
+            });
+
+            // End demo and hide cursor
+            const tEnd = setTimeout(() => {
+                stopDemoAnimation();
+            }, delay + 500);
+            demoTimeouts.push(tEnd);
+        }
+
+        // IntersectionObserver to auto-start demo when user scrolls to itinerary
+        document.addEventListener('DOMContentLoaded', () => {
+            const itinerarySection = document.getElementById('itinerario');
+            if (itinerarySection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !demoHasRun) {
+                            runItineraryDemo();
+                        }
+                    });
+                }, { threshold: 0.35 });
+
+                observer.observe(itinerarySection);
+            }
+        });
 
         // Modal Functions
         function openModal() {
