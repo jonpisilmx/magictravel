@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Travel ✨ • Retreat Mazunte, Oaxaca</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pop-bg': '#FFF7EE',
+                        'pop-bg-alt': '#FDF3E7',
+                        'pop-orange': '#FF5722',
+                        'pop-orange-hover': '#e64a19',
+                        'pop-pink': '#FF4081',
+                        'pop-pink-soft': '#FFE4EC',
+                        'pop-yellow': '#FFB703',
+                        'pop-yellow-light': '#FFF3CD',
+                        'pop-terracotta': '#D84315',
+                        'pop-card': '#FFFFFF',
+                        'pop-text': '#2D2118',
+                    },
+                    fontFamily: {
+                        heading: ['Fredoka', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        handwriting: ['Caveat', 'cursive'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '2.5rem',
+                        'blob': '40% 60% 70% 30% / 40% 50% 60% 50%',
+                        'blob-2': '60% 40% 30% 70% / 60% 30% 70% 40%',
+                    },
+                    boxShadow: {
+                        'pop': '6px 6px 0px 0px #2D2118',
+                        'pop-lg': '10px 10px 0px 0px #2D2118',
+                        'pop-orange': '6px 6px 0px 0px #FF5722',
+                        'pop-pink': '6px 6px 0px 0px #FF4081',
+                        'pop-hover': '2px 2px 0px 0px #2D2118',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom retro pop accent animations and rules */
+        body {
+            background-color: #FFF7EE;
+            color: #2D2118;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Retro Wavy Container background SVG trick */
+        .wavy-shape {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 95%, 70% 88%, 55% 98%, 40% 90%, 25% 97%, 10% 91%, 0 100%);
+        }
+
+        /* Floating retro badge spin animation */
+        @keyframes slow-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: slow-rotate 20s linear infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF7EE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF5722;
+            border-radius: 5px;
+        }
+
+        /* Retro Flower SVG inline component style */
+        .flower-icon {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-pop-pink selection:text-white">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-50 bg-pop-bg/90 backdrop-blur-md border-b-4 border-pop-text px-4 lg:px-12 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <span class="bg-pop-yellow border-2 border-pop-text text-pop-text p-2 rounded-2xl shadow-pop transform group-hover:rotate-12 transition-transform">
+                    <svg class="w-6 h-6 fill-current text-pop-orange" viewBox="0 0 24 24">
+                        <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+                    </svg>
+                </span>
+                <span class="font-heading font-bold text-2xl md:text-3xl tracking-tight text-pop-text">
+                    Magic Travel <span class="text-pop-orange">✨</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-heading font-semibold text-lg">
+                <a href="#intro" class="hover:text-pop-orange transition-colors">Introducción</a>
+                <a href="#destino" class="hover:text-pop-orange transition-colors">El Destino</a>
+                <a href="#itinerario" class="hover:text-pop-orange transition-colors">Itinerario</a>
+                <a href="#experiencia" class="hover:text-pop-orange transition-colors">¿Qué incluye?</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="flex items-center gap-3">
+                <button onclick="openModal()" class="font-heading font-bold bg-pop-orange hover:bg-pop-pink text-white px-5 py-2.5 rounded-full border-2 border-pop-text shadow-pop hover:shadow-pop-hover hover:translate-x-1 hover:translate-y-1 transition-all flex items-center gap-2">
+                    <span>¡Unirme al Viaje!</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-2xl p-2 text-pop-text focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Nav -->
+        <div id="mobileMenu" class="hidden md:hidden bg-pop-bg border-t-2 border-pop-text mt-3 pt-4 pb-6 px-4 space-y-3 font-heading text-center">
+            <a href="#intro" onclick="toggleMenu()" class="block text-xl font-medium hover:text-pop-orange">Introducción</a>
+            <a href="#destino" onclick="toggleMenu()" class="block text-xl font-medium hover:text-pop-orange">El Destino</a>
+            <a href="#itinerario" onclick="toggleMenu()" class="block text-xl font-medium hover:text-pop-orange">Itinerario</a>
+            <a href="#experiencia" onclick="toggleMenu()" class="block text-xl font-medium hover:text-pop-orange">¿Qué incluye?</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-8 pb-16 md:py-20 px-4 max-w-7xl mx-auto overflow-hidden">
+        
+        <!-- Retro Starburst / Flower Background Decoration -->
+        <div class="absolute top-10 right-5 text-pop-yellow opacity-40 pointer-events-none animate-spin-slow hidden md:block">
+            <svg width="180" height="180" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 0 C55 35 65 45 100 50 C65 55 55 65 50 100 C45 65 35 55 0 50 C35 45 45 35 50 0 Z"/>
+            </svg>
+        </div>
+        
+        <div class="grid md:grid-cols-12 gap-8 items-center">
+            
+            <!-- Left Hero Content -->
+            <div class="md:col-span-7 space-y-6 text-center md:text-left z-10">
+                
+                <!-- Badges Row -->
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3">
+                    <span class="bg-pop-pink-soft text-pop-pink border-2 border-pop-text font-heading font-bold text-sm px-4 py-1.5 rounded-full shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-location-dot"></i> Playa Mazunte, Oaxaca
+                    </span>
+                    <span class="bg-pop-yellow-light text-pop-text border-2 border-pop-text font-heading font-bold text-sm px-4 py-1.5 rounded-full shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-calendar-days"></i> 4 al 8 de Marzo
+                    </span>
+                    <span class="bg-white text-pop-orange border-2 border-pop-text font-heading font-bold text-sm px-4 py-1.5 rounded-full shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-heart"></i> Viaje de Chicas
+                    </span>
+                </div>
+
+                <!-- Main Hero Headline -->
+                <h1 class="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-pop-text leading-[1.1]">
+                    UN VIAJE MÁGICO PARA <span class="bg-pop-yellow px-3 py-1 rounded-2xl border-2 border-pop-text shadow-pop inline-block rotate-[-1deg] text-pop-orange">RECONECTAR</span> Y TRANSFORMARTE
+                </h1>
+
+                <!-- Tagline -->
+                <p class="text-xl md:text-2xl text-pop-text/90 font-medium leading-relaxed max-w-2xl">
+                    "50% mar, 50% magia. Una experiencia pensada para soltar lo que te pesa, conectar con tu esencia y abrazar nuevas posibilidades."
+                </p>
+
+                <p class="font-handwriting text-3xl md:text-4xl text-pop-pink font-bold rotate-[-2deg]">
+                    ~ Vuelve a ti en el Pacífico Oaxaqueño ✨
+                </p>
+
+                <!-- Hero Action Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+                    <a href="#itinerario" class="w-full sm:w-auto text-center font-heading font-bold bg-pop-yellow hover:bg-pop-orange hover:text-white text-pop-text text-lg px-8 py-4 rounded-3xl border-3 border-pop-text shadow-pop hover:shadow-pop-hover hover:translate-x-1 hover:translate-y-1 transition-all">
+                        Explorar Itinerario
+                    </a>
+                    <button onclick="openModal()" class="w-full sm:w-auto text-center font-heading font-bold bg-white hover:bg-pop-pink-soft text-pop-text text-lg px-8 py-4 rounded-3xl border-3 border-pop-text shadow-pop hover:shadow-pop-hover hover:translate-x-1 hover:translate-y-1 transition-all">
+                        Apartar Mi Lugar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Hero Visual Grid (Retro Pop Composition) -->
+            <div class="md:col-span-5 relative flex justify-center mt-6 md:mt-0">
+                
+                <!-- Main Card Container -->
+                <div class="relative w-full max-w-md">
+                    
+                    <!-- Decorative Frame Behind -->
+                    <div class="absolute inset-0 bg-pop-orange rounded-5xl border-3 border-pop-text transform rotate-3 translate-x-3 translate-y-3"></div>
+                    
+                    <!-- Top Visual Box -->
+                    <div class="relative bg-pop-card border-3 border-pop-text rounded-5xl p-6 shadow-pop-lg space-y-4 text-center overflow-hidden">
+                        
+                        <!-- Floating Badge Stamp -->
+                        <div class="absolute -top-3 -right-3 bg-pop-pink text-white font-heading font-bold text-xs px-3 py-2 rounded-full border-2 border-pop-text rotate-12 shadow-md">
+                            ¡OAXACA MAGIC! 🌴
+                        </div>
+
+                        <div class="bg-pop-bg rounded-3xl p-6 border-2 border-pop-text relative">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Mazunte Beach" class="w-full h-56 object-cover rounded-2xl border-2 border-pop-text shadow-sm">
+                            
+                            <!-- Overlay Pill -->
+                            <div class="absolute bottom-9 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm border-2 border-pop-text px-4 py-1.5 rounded-full font-heading font-bold text-sm text-pop-orange shadow-md">
+                                Mazunte, México ✨
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <h3 class="font-heading font-bold text-2xl text-pop-text">5 Días de Aventura y Conexión</h3>
+                            <p class="text-sm font-medium text-pop-text/80">Caminatas al amanecer, taller de arte, surf, rituales simbólicos y amistades para toda la vida.</p>
+                        </div>
+
+                        <!-- Mini Highlights Icons -->
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t-2 border-dashed border-pop-text/20">
+                            <div class="bg-pop-yellow-light p-2 rounded-xl text-center">
+                                <i class="fa-solid fa-water text-pop-orange text-lg"></i>
+                                <span class="block text-xs font-bold mt-1">Surf & Sea</span>
+                            </div>
+                            <div class="bg-pop-pink-soft p-2 rounded-xl text-center">
+                                <i class="fa-solid fa-palette text-pop-pink text-lg"></i>
+                                <span class="block text-xs font-bold mt-1">Arte & Círculos</span>
+                            </div>
+                            <div class="bg-pop-bg p-2 rounded-xl text-center">
+                                <i class="fa-solid fa-sun text-pop-yellow text-lg"></i>
+                                <span class="block text-xs font-bold mt-1">Atardeceres</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTRO & CONCEPT SECTION -->
+    <section id="intro" class="py-16 bg-pop-orange border-y-4 border-pop-text text-white relative overflow-hidden">
+        
+        <!-- Background Pattern Graphics -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_2px,transparent_2px)] [background-size:16px_16px]"></div>
+
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10 space-y-8">
+            
+            <!-- Flower Icon Accent -->
+            <div class="inline-block bg-pop-yellow text-pop-text p-4 rounded-full border-3 border-pop-text shadow-pop animate-bounce">
+                <svg class="w-10 h-10 fill-current" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 2C13.5 4.5 15 5.5 17.5 5.5 C17.5 8 18.5 9.5 21 11 C18.5 12.5 17.5 14 17.5 16.5 C15 16.5 13.5 17.5 12 20 C10.5 17.5 9 16.5 6.5 16.5 C6.5 14 5.5 12.5 3 11 C5.5 9.5 6.5 8 6.5 5.5 C9 5.5 10.5 4.5 12 2 Z"/>
+                </svg>
+            </div>
+
+            <h2 class="font-heading font-extrabold text-3xl sm:text-5xl tracking-tight text-pop-yellow">
+                ESTE ES UN VIAJE CREADO ESPECIALMENTE PARA TI
+            </h2>
+
+            <p class="text-xl md:text-3xl font-medium leading-relaxed max-w-4xl mx-auto text-white/95">
+                Para que <strong class="underline decoration-pop-yellow decoration-4">reconectes</strong>, sueltes lo que te pesa y termines con una vibra de transformación, entendiendo que lo vivido siempre se convierte en nuevas posibilidades.
+            </p>
+
+            <!-- Decorative Card Highlight -->
+            <div class="bg-pop-card text-pop-text p-6 md:p-10 rounded-4xl border-3 border-pop-text shadow-pop-lg max-w-3xl mx-auto transform -rotate-1 hover:rotate-0 transition-transform">
+                <p class="font-heading text-xl md:text-2xl font-bold text-pop-pink leading-snug">
+                    "Cinco días de mar, aventura, creatividad y conexión, donde desconocidas se convierten en compañeras de camino y cada experiencia nos recuerda que siempre podemos volver a empezar."
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DESTINATION HIGHLIGHT (MAZUNTE) -->
+    <section id="destino" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center space-y-4 mb-12">
+            <span class="bg-pop-yellow text-pop-text border-2 border-pop-text font-heading font-bold text-sm px-4 py-1.5 rounded-full shadow-sm inline-block">
+                📍 EL ESCENARIO PERFECTO
+            </span>
+            <h2 class="font-heading font-extrabold text-4xl sm:text-5xl text-pop-text">
+                LA MAGIA DE PLAYA MAZUNTE
+            </h2>
+            <p class="text-lg text-pop-text/80 max-w-2xl mx-auto">
+                Un Pueblo Mágico envuelto por el Pacífico oaxaqueño, famoso por sus atardeceres dorados, energía sanadora y espíritu libre.
+            </p>
+        </div>
+
+        <!-- Destination Cards Grid -->
+        <div class="grid md:grid-cols-3 gap-8">
+            
+            <!-- Spot 1 -->
+            <div class="bg-pop-card border-3 border-pop-text rounded-4xl p-6 shadow-pop hover:-translate-y-2 transition-transform space-y-4">
+                <div class="h-48 rounded-2xl overflow-hidden border-2 border-pop-text relative">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Punta Cometa" class="w-full h-full object-cover">
+                    <span class="absolute bottom-3 left-3 bg-pop-pink text-white font-heading font-bold text-xs px-3 py-1 rounded-full border border-pop-text">
+                        Amaneceres & Atardeceres
+                    </span>
+                </div>
+                <h3 class="font-heading font-bold text-2xl text-pop-text">Punta Cometa</h3>
+                <p class="text-pop-text/80 font-medium text-sm">
+                    El punto más sobresaliente de México en el Pacífico Sur. Un santuario natural cargado de energía magnética donde contemplaremos espectaculares vistas al mar.
+                </p>
+            </div>
+
+            <!-- Spot 2 -->
+            <div class="bg-pop-card border-3 border-pop-text rounded-4xl p-6 shadow-pop hover:-translate-y-2 transition-transform space-y-4">
+                <div class="h-48 rounded-2xl overflow-hidden border-2 border-pop-text relative">
+                    <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=600&q=80" alt="Playa Rinconcito" class="w-full h-full object-cover">
+                    <span class="absolute bottom-3 left-3 bg-pop-orange text-white font-heading font-bold text-xs px-3 py-1 rounded-full border border-pop-text">
+                        Aguas Cálidas
+                    </span>
+                </div>
+                <h3 class="font-heading font-bold text-2xl text-pop-text">Playa Rinconcito</h3>
+                <p class="text-pop-text/80 font-medium text-sm">
+                    Su suave oleaje la convierte en el sitio ideal para nuestras sesiones de Paddle Surf al atardecer y momentos refrescantes de desconexión.
+                </p>
+            </div>
+
+            <!-- Spot 3 -->
+            <div class="bg-pop-card border-3 border-pop-text rounded-4xl p-6 shadow-pop hover:-translate-y-2 transition-transform space-y-4">
+                <div class="h-48 rounded-2xl overflow-hidden border-2 border-pop-text relative">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" alt="Comunidad & Sanación" class="w-full h-full object-cover">
+                    <span class="absolute bottom-3 left-3 bg-pop-yellow text-pop-text font-heading font-bold text-xs px-3 py-1 rounded-full border border-pop-text">
+                        Vibra Boemia
+                    </span>
+                </div>
+                <h3 class="font-heading font-bold text-2xl text-pop-text">Vibra & Transformación</h3>
+                <p class="text-pop-text/80 font-medium text-sm">
+                    Mazunte ofrece una atmósfera tranquila y bohemia donde el tiempo se detiene, permitiéndote respirar profundo y conectar con mujeres increíbles.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE ITINERARY SECTION -->
+    <section id="itinerario" class="py-20 bg-pop-bg-alt border-t-4 border-pop-text relative">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <div class="text-center space-y-4 mb-12">
+                <span class="bg-pop-pink text-white border-2 border-pop-text font-heading font-bold text-sm px-4 py-1.5 rounded-full shadow-sm inline-block rotate-[-1deg]">
+                    🗓️ PASO A PASO
+                </span>
+                <h2 class="font-heading font-extrabold text-4xl sm:text-6xl text-pop-text">
+                    TU ITINERARIO MÁGICO
+                </h2>
+                <p class="text-lg text-pop-text/80 max-w-2xl mx-auto font-medium">
+                    Haz clic en cada día para descubrir las experiencias preparadas para ti.
+                </p>
+            </div>
+
+            <!-- Day Selector Tabs (Retro Pill Buttons) -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10" id="dayTabs">
+                <button onclick="switchDay(1)" id="tab-1" class="day-tab active font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-pop-orange text-white shadow-pop">
+                    Día 1 • Jue 4 Mar
+                </button>
+                <button onclick="switchDay(2)" id="tab-2" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
+                    Día 2 • Vie 5 Mar
+                </button>
+                <button onclick="switchDay(3)" id="tab-3" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
+                    Día 3 • Sáb 6 Mar
+                </button>
+                <button onclick="switchDay(4)" id="tab-4" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
+                    Día 4 • Dom 7 Mar
+                </button>
+                <button onclick="switchDay(5)" id="tab-5" class="day-tab font-heading font-bold px-5 py-3 rounded-2xl border-3 border-pop-text transition-all bg-white text-pop-text hover:bg-pop-yellow-light shadow-sm">
+                    Día 5 • Lun 8 Mar
+                </button>
+            </div>
+
+            <!-- Day Content Cards Container -->
+            <div class="max-w-4xl mx-auto">
+                
+                <!-- DAY 1 -->
+                <div id="day-content-1" class="day-content bg-pop-card border-3 border-pop-text rounded-5xl p-6 sm:p-10 shadow-pop-lg space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b-3 border-dashed border-pop-text/20 pb-6">
+                        <div>
+                            <span class="text-pop-pink font-heading font-bold text-sm tracking-widest uppercase">JUEVES 4 DE MARZO</span>
+                            <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-pop-text mt-1">
+                                DÍA 1 • ATERRIZAR Y CONECTAR 🌊
+                            </h3>
+                        </div>
+                        <span class="bg-pop-yellow text-pop-text border-2 border-pop-text font-heading font-bold px-4 py-2 rounded-2xl text-sm">
+                            Objetivo: Soltar & Hacer Conciencia
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-heading font-bold text-xl text-pop-orange flex items-center gap-2">
+                            <i class="fa-solid fa-sparkles"></i> Actividades del Día:
+                        </h4>
+                        <ul class="space-y-3 font-medium text-pop-text/90">
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-gift"></i></span>
+                                <div>
+                                    <strong>Bienvenida Especial & Kit de Viaje:</strong> Recepción del grupo con dinámicas especiales para romper el hielo y conocernos.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-water"></i></span>
+                                <div>
+                                    <strong>Caminata al Mar:</strong> Caminaremos juntas hacia la playa para conectar con el presente y el sonido de las olas.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-utensils"></i></span>
+                                <div>
+                                    <strong>Cena de Bienvenida:</strong> Un momento íntimo compartiendo nuestras intenciones para toda esta experiencia.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-pop-pink-soft border-2 border-pop-text p-5 rounded-3xl space-y-1">
+                        <span class="font-heading font-bold text-pop-pink text-xs uppercase tracking-wider">🎯 Propósito Consciente</span>
+                        <p class="font-semibold text-pop-text text-base">
+                            Conocernos y hacer conciencia (escribiéndolo) de todo aquello que deseamos soltar en esta nueva etapa.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- DAY 2 -->
+                <div id="day-content-2" class="day-content hidden bg-pop-card border-3 border-pop-text rounded-5xl p-6 sm:p-10 shadow-pop-lg space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b-3 border-dashed border-pop-text/20 pb-6">
+                        <div>
+                            <span class="text-pop-pink font-heading font-bold text-sm tracking-widest uppercase">VIERNES 5 DE MARZO</span>
+                            <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-pop-text mt-1">
+                                DÍA 2 • ¡ATREVERME! 🏄‍♀️
+                            </h3>
+                        </div>
+                        <span class="bg-pop-yellow text-pop-text border-2 border-pop-text font-heading font-bold px-4 py-2 rounded-2xl text-sm">
+                            Objetivo: Confianza & Valentía
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-heading font-bold text-xl text-pop-orange flex items-center gap-2">
+                            <i class="fa-solid fa-sparkles"></i> Actividades del Día:
+                        </h4>
+                        <ul class="space-y-3 font-medium text-pop-text/90">
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-pink text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-spa"></i></span>
+                                <div>
+                                    <strong>Yoga Frente al Mar:</strong> Sesión matutina revitalizante frente a las olas seguida de un desayuno compartido.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-pink text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-person-surfing"></i></span>
+                                <div>
+                                    <strong>Clase de Surf por la Tarde:</strong> Desafiaremos nuestros miedos, saldremos de la zona de confort y aprenderemos a confiar en nosotros mismas.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-pink text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-microphone"></i></span>
+                                <div>
+                                    <strong>Noche de Chicas:</strong> Diversión garantizada con karaoke, buena música, baile y risas.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-pop-yellow-light border-2 border-pop-text p-5 rounded-3xl space-y-1">
+                        <span class="font-heading font-bold text-pop-orange text-xs uppercase tracking-wider">🎯 Propósito Consciente</span>
+                        <p class="font-semibold text-pop-text text-base">
+                            Que te des cuenta de todo lo que eres capaz y reconozcas que puedes lograr todo lo que te propones.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- DAY 3 -->
+                <div id="day-content-3" class="day-content hidden bg-pop-card border-3 border-pop-text rounded-5xl p-6 sm:p-10 shadow-pop-lg space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b-3 border-dashed border-pop-text/20 pb-6">
+                        <div>
+                            <span class="text-pop-pink font-heading font-bold text-sm tracking-widest uppercase">SÁBADO 6 DE MARZO</span>
+                            <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-pop-text mt-1">
+                                DÍA 3 • LA TRANSFORMACIÓN 🎨
+                            </h3>
+                        </div>
+                        <span class="bg-pop-yellow text-pop-text border-2 border-pop-text font-heading font-bold px-4 py-2 rounded-2xl text-sm">
+                            Objetivo: Sanar & Sanar Guiado
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-heading font-bold text-xl text-pop-orange flex items-center gap-2">
+                            <i class="fa-solid fa-sparkles"></i> Actividades del Día:
+                        </h4>
+                        <ul class="space-y-3 font-medium text-pop-text/90">
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-palette"></i></span>
+                                <div>
+                                    <strong>Taller Artístico Creativo:</strong> Exploraremos nuestra creatividad expresando visualmente nuestros nuevos comienzos.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-camera"></i></span>
+                                <div>
+                                    <strong>Sesión de Fotos & Picnic al Atardecer:</strong> Fotos increíbles y picnic frente al mar con una actividad simbólica para soltar, escribir y transformar.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-comments"></i></span>
+                                <div>
+                                    <strong>Círculo Guiado por Psicóloga:</strong> Un espacio seguro, empático y profesional de reflexión y conexión profunda.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-pop-pink-soft border-2 border-pop-text p-5 rounded-3xl space-y-1">
+                        <span class="font-heading font-bold text-pop-pink text-xs uppercase tracking-wider">🎯 Propósito Consciente</span>
+                        <p class="font-semibold text-pop-text text-base">
+                            Tener conciencia de lo que hemos cargado, reconocer quiénes somos y definir cómo queremos transformarlo con guía experta.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- DAY 4 -->
+                <div id="day-content-4" class="day-content hidden bg-pop-card border-3 border-pop-text rounded-5xl p-6 sm:p-10 shadow-pop-lg space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b-3 border-dashed border-pop-text/20 pb-6">
+                        <div>
+                            <span class="text-pop-pink font-heading font-bold text-sm tracking-widest uppercase">DOMINGO 7 DE MARZO</span>
+                            <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-pop-text mt-1">
+                                DÍA 4 • CELEBRAR NUESTRA LIBERTAD 🎉
+                            </h3>
+                        </div>
+                        <span class="bg-pop-yellow text-pop-text border-2 border-pop-text font-heading font-bold px-4 py-2 rounded-2xl text-sm">
+                            Objetivo: Celebración & Empoderamiento
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-heading font-bold text-xl text-pop-orange flex items-center gap-2">
+                            <i class="fa-solid fa-sparkles"></i> Actividades del Día:
+                        </h4>
+                        <ul class="space-y-3 font-medium text-pop-text/90">
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-pink text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-sun"></i></span>
+                                <div>
+                                    <strong>Amanecer en Punta Cometa:</strong> Movimiento consciente y caminata matutina para ver salir el sol, seguido de un desayuno sin prisas.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-pink text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-water"></i></span>
+                                <div>
+                                    <strong>Tiempo Libre & Paddle Surf:</strong> Descanso libre por la mañana y Paddle Surf al atardecer en Playa Rinconcito.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-pink text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-champagne-glasses"></i></span>
+                                <div>
+                                    <strong>Cena Especial y Fiesta:</strong> Celebración para honrar a la mujer que somos y a todas las versiones que estamos listas para descubrir.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-pop-yellow-light border-2 border-pop-text p-5 rounded-3xl space-y-1">
+                        <span class="font-heading font-bold text-pop-orange text-xs uppercase tracking-wider">🎯 Propósito Consciente</span>
+                        <p class="font-semibold text-pop-text text-base">
+                            Celebrar la libertad de ser nosotros mismas y conectar con nuestro verdadero potencial sin juicios.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- DAY 5 -->
+                <div id="day-content-5" class="day-content hidden bg-pop-card border-3 border-pop-text rounded-5xl p-6 sm:p-10 shadow-pop-lg space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4 border-b-3 border-dashed border-pop-text/20 pb-6">
+                        <div>
+                            <span class="text-pop-pink font-heading font-bold text-sm tracking-widest uppercase">LUNES 8 DE MARZO</span>
+                            <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-pop-text mt-1">
+                                DÍA 5 • VOLVER A MÍ, VOLVER AL MUNDO 💖
+                            </h3>
+                        </div>
+                        <span class="bg-pop-yellow text-pop-text border-2 border-pop-text font-heading font-bold px-4 py-2 rounded-2xl text-sm">
+                            Objetivo: Integración & Cierre
+                        </span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-heading font-bold text-xl text-pop-orange flex items-center gap-2">
+                            <i class="fa-solid fa-sparkles"></i> Actividades del Día:
+                        </h4>
+                        <ul class="space-y-3 font-medium text-pop-text/90">
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-shoe-prints"></i></span>
+                                <div>
+                                    <strong>Caminata Junto al Mar:</strong> Último paseo junto a la orilla y desayuno cálido de despedida.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-envelope-open-text"></i></span>
+                                <div>
+                                    <strong>Círculo Final e Intercambio de Cartas:</strong> Intercambiaremos mensajes significativos y tomaremos nuestra foto grupal del recuerdo.
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-pop-bg p-3.5 rounded-2xl border border-pop-text/20">
+                                <span class="bg-pop-orange text-white p-2 rounded-xl text-xs mt-0.5"><i class="fa-solid fa-plane-departure"></i></span>
+                                <div>
+                                    <strong>Regreso a Casa:</strong> Retorno con nuevas amistades, memorias inolvidables y la clara intención de seguir elegiéndote cada día.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-pop-pink-soft border-2 border-pop-text p-5 rounded-3xl space-y-1">
+                        <span class="font-heading font-bold text-pop-pink text-xs uppercase tracking-wider">🎯 Propósito Consciente</span>
+                        <p class="font-semibold text-pop-text text-base">
+                            Integrar todo lo vivido y regresar a nuestra rutina con renovada paz, claridad e intención.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INCLUSIONS / EXPERIENCE SECTION -->
+    <section id="experiencia" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center space-y-4 mb-16">
+            <span class="bg-pop-yellow text-pop-text border-2 border-pop-text font-heading font-bold text-sm px-4 py-1.5 rounded-full shadow-sm inline-block">
+                ✨ EXPERIENCIA COMPLETA
+            </span>
+            <h2 class="font-heading font-extrabold text-4xl sm:text-5xl text-pop-text">
+                ¿QUÉ INCLUYE TU VIAJE MÁGICO?
+            </h2>
+            <p class="text-lg text-pop-text/80 max-w-2xl mx-auto font-medium">
+                Todo preparado con amor y atención al detalle para que solo te preocupes por disfrutar.
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="bg-pop-card border-3 border-pop-text p-6 rounded-4xl shadow-pop text-center space-y-3">
+                <div class="w-14 h-14 bg-pop-orange text-white rounded-2xl border-2 border-pop-text flex items-center justify-center text-2xl mx-auto shadow-sm">
+                    <i class="fa-solid fa-hotel"></i>
+                </div>
+                <h3 class="font-heading font-bold text-xl">Hospedaje Mágico</h3>
+                <p class="text-sm text-pop-text/80 font-medium">Estancia acogedora de 5 días en Mazunte pensada para el descanso y la convivencia.</p>
+            </div>
+
+            <div class="bg-pop-card border-3 border-pop-text p-6 rounded-4xl shadow-pop text-center space-y-3">
+                <div class="w-14 h-14 bg-pop-pink text-white rounded-2xl border-2 border-pop-text flex items-center justify-center text-2xl mx-auto shadow-sm">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <h3 class="font-heading font-bold text-xl">Acompañamiento</h3>
+                <p class="text-sm text-pop-text/80 font-medium">Círculos de reflexión y talleres guiados por psicóloga especialista.</p>
+            </div>
+
+            <div class="bg-pop-card border-3 border-pop-text p-6 rounded-4xl shadow-pop text-center space-y-3">
+                <div class="w-14 h-14 bg-pop-yellow text-pop-text rounded-2xl border-2 border-pop-text flex items-center justify-center text-2xl mx-auto shadow-sm">
+                    <i class="fa-solid fa-water-ladder"></i>
+                </div>
+                <h3 class="font-heading font-bold text-xl">Surf & Paddle</h3>
+                <p class="text-sm text-pop-text/80 font-medium">Clases de surf, sesión de paddle surf al atardecer y equipo necesario.</p>
+            </div>
+
+            <div class="bg-pop-card border-3 border-pop-text p-6 rounded-4xl shadow-pop text-center space-y-3">
+                <div class="w-14 h-14 bg-pop-terracotta text-white rounded-2xl border-2 border-pop-text flex items-center justify-center text-2xl mx-auto shadow-sm">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <h3 class="font-heading font-bold text-xl">Kit & Sorpresas</h3>
+                <p class="text-sm text-pop-text/80 font-medium">Kit de bienvenida especial, taller de arte creativo, fotos y picnic en el mar.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BANNER CALL TO ACTION -->
+    <section class="py-16 px-4 max-w-6xl mx-auto">
+        <div class="bg-pop-yellow border-4 border-pop-text rounded-5xl p-8 md:p-14 shadow-pop-lg text-center space-y-6 relative overflow-hidden">
+            
+            <div class="space-y-3 relative z-10">
+                <h2 class="font-heading font-extrabold text-3xl sm:text-5xl text-pop-text">
+                    ¿LISTA PARA DARTE ESTE REGALO?
+                </h2>
+                <p class="text-lg md:text-xl font-semibold text-pop-text/90 max-w-2xl mx-auto">
+                    Los cupos son limitados para mantener la calidez e intimidad del grupo. ¡Reserva tu lugar hoy!
+                </p>
+            </div>
+
+            <div class="pt-2 relative z-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button onclick="openModal()" class="w-full sm:w-auto font-heading font-bold bg-pop-orange text-white text-xl px-10 py-4 rounded-3xl border-3 border-pop-text shadow-pop hover:shadow-pop-hover hover:translate-x-1 hover:translate-y-1 transition-all">
+                    ¡Quiero Agendar Mi Lugar! ✨
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-pop-text text-white py-12 border-t-4 border-pop-text px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+            <div>
+                <h3 class="font-heading font-bold text-2xl text-pop-yellow">Magic Travel ✨</h3>
+                <p class="text-sm text-white/70 mt-1">Viajes con propósito, aventura y reconexión en México.</p>
+            </div>
+            
+            <div class="flex gap-6 text-xl">
+                <a href="#" class="hover:text-pop-yellow transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-pop-yellow transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-pop-yellow transition-colors"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+
+            <div class="text-xs text-white/60">
+                &copy; 2026 Magic Travel. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- REGISTRATION MODAL -->
+    <div id="bookingModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-pop-card border-4 border-pop-text rounded-5xl max-w-lg w-full p-6 sm:p-8 shadow-pop-lg relative animate-fade-in">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-pop-bg border-2 border-pop-text rounded-full font-bold text-pop-text hover:bg-pop-pink hover:text-white transition-colors">
+                ✕
+            </button>
+
+            <div class="text-center space-y-2 mb-6">
+                <span class="bg-pop-yellow-light text-pop-orange border border-pop-text font-heading font-bold text-xs px-3 py-1 rounded-full">
+                    RESERVA TU LUGAR
+                </span>
+                <h3 class="font-heading font-extrabold text-3xl text-pop-text">
+                    ¡Únete a la Magia!
+                </h3>
+                <p class="text-sm text-pop-text/80">
+                    Déjanos tus datos y nos pondremos en contacto contigo de inmediato con todos los detalles.
+                </p>
+            </div>
+
+            <!-- Form -->
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block font-heading font-bold text-sm text-pop-text mb-1">Nombre Completo</label>
+                    <input type="text" required placeholder="Tu nombre" class="w-full px-4 py-3 rounded-2xl border-2 border-pop-text bg-pop-bg focus:outline-none focus:ring-2 focus:ring-pop-orange font-medium">
+                </div>
+
+                <div>
+                    <label class="block font-heading font-bold text-sm text-pop-text mb-1">WhatsApp / Teléfono</label>
+                    <input type="tel" required placeholder="+52 55 1234 5678" class="w-full px-4 py-3 rounded-2xl border-2 border-pop-text bg-pop-bg focus:outline-none focus:ring-2 focus:ring-pop-orange font-medium">
+                </div>
+
+                <div>
+                    <label class="block font-heading font-bold text-sm text-pop-text mb-1">Correo Electrónico</label>
+                    <input type="email" required placeholder="tu@email.com" class="w-full px-4 py-3 rounded-2xl border-2 border-pop-text bg-pop-bg focus:outline-none focus:ring-2 focus:ring-pop-orange font-medium">
+                </div>
+
+                <div>
+                    <label class="block font-heading font-bold text-sm text-pop-text mb-1">¿Qué es lo que más deseas soltar en este viaje?</label>
+                    <textarea rows="2" placeholder="Cuéntanos un poquito..." class="w-full px-4 py-3 rounded-2xl border-2 border-pop-text bg-pop-bg focus:outline-none focus:ring-2 focus:ring-pop-orange font-medium"></textarea>
+                </div>
+
+                <button type="submit" class="w-full font-heading font-bold bg-pop-orange hover:bg-pop-pink text-white text-lg py-3.5 rounded-2xl border-2 border-pop-text shadow-pop hover:shadow-pop-hover hover:translate-x-0.5 hover:translate-y-0.5 transition-all mt-2">
+                    Enviar Información 💌
+                </button>
+            </form>
+
+            <div id="successMsg" class="hidden text-center p-4 bg-pop-yellow-light border-2 border-pop-text rounded-2xl mt-4 font-heading font-bold text-pop-orange">
+                ¡Gracias por tu interés! Te contactaremos muy pronto para completar tu registro ✨
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function toggleMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Itinerary Tabs switching logic
+        function switchDay(dayNum) {
+            // Update tabs style
+            document.querySelectorAll('.day-tab').forEach((tab, idx) => {
+                if (idx + 1 === dayNum) {
+                    tab.classList.remove('bg-white', 'text-pop-text', 'hover:bg-pop-yellow-light', 'shadow-sm');
+                    tab.classList.add('bg-pop-orange', 'text-white', 'shadow-pop');
+                } else {
+                    tab.classList.add('bg-white', 'text-pop-text', 'hover:bg-pop-yellow-light', 'shadow-sm');
+                    tab.classList.remove('bg-pop-orange', 'text-white', 'shadow-pop');
+                }
+            });
+
+            // Update contents visibility
+            document.querySelectorAll('.day-content').forEach((content, idx) => {
+                if (idx + 1 === dayNum) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('bookingModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+            document.getElementById('successMsg').classList.add('hidden');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            document.getElementById('successMsg').classList.remove('hidden');
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
